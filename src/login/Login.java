@@ -24,14 +24,26 @@ public class Login {
     }
 
     public boolean checkPasswordComplexity() {
-        if (password == null) return false;
-        boolean hasLength = password.length() >= 8;
-        boolean hasCapital = password.matches(".[A-Z].");
-        boolean hasNumber = password.matches(".[0-9].");
-        boolean hasSpecial = password.matches(".[!@#$%^&()_+\\-=\\[\\]{};':\"\\\\|,.<>/?].*");
-        return hasLength && hasCapital && hasNumber && hasSpecial;
+           if (password == null || password.length() < 8) {
+        return false;
+    }
+           boolean hasCapital = false;
+    boolean hasNumber = false;
+    boolean hasSpecial = false;
+    for (int i = 0; i < password.length(); i++) {
+        char c = password.charAt(i);
+        
+        if (Character.isUpperCase(c)) {
+            hasCapital = true;
+              } else if (Character.isDigit(c)) {
+            hasNumber = true;
+               } else if (!Character.isLetterOrDigit(c)) {
+            hasSpecial = true;
+               }
     }
 
+    return hasCapital && hasNumber && hasSpecial;
+}
     public boolean checkCellPhoneNumber() {
         // Regex pour valider le format international (ex: +27...) sans dépasser 10 chiffres hors code
         return cellPhoneNumber != null && cellPhoneNumber.matches("^\\+27[0-9]{9}$");
