@@ -90,12 +90,24 @@ public class Message {
     }
 
     // Part 3 Features
-    public static void displayStoredMessagesSenderRecipient() {
-        System.out.println("\n--- STORED MESSAGES (SENDER & RECIPIENT) ---");
-        for (Message msg : storedMessages) {
-            System.out.println("Recipient: " + msg.getRecipientCell());
-        }
+   
+public static void displayStoredMessagesSenderRecipient() {
+    System.out.println("\n--- STORED MESSAGES (SENDER & RECIPIENT) ---");
+
+    if (storedMessages.isEmpty()) {
+        System.out.println("No stored messages found.");
+        return;
     }
+
+    for (Message msg : storedMessages) {
+        System.out.println("Message ID: " + msg.getMessageID());
+        System.out.println("Recipient: " + msg.getRecipientCell());
+        System.out.println("Message: " + msg.getMessageText());
+        System.out.println("Message Hash: " + msg.getMessageHash());
+        System.out.println("--------------------------------");
+    }
+}
+
 
     public static void displayLongestStoredMessage() {
         if (storedMessages.isEmpty()) {
