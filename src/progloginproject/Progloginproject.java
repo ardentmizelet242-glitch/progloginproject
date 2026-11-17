@@ -1,6 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license.1
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit 1t
+his template
+
+
+
+
  */
 package progloginproject;
 
@@ -52,6 +57,7 @@ public class Progloginproject {
                 System.out.println("1) Send Messages");
                 System.out.println("2) Show recently sent messages");
                 System.out.println("3) Quit");
+                System.out.println("4) Stored Messages");
                 System.out.print("Choice: ");
                 
                 int option = scanner.nextInt();
@@ -74,17 +80,74 @@ public class Progloginproject {
                                 continue;
                             }
 
-                            Message msg = new Message(recipient, msgText, i + 1);
-                            System.out.println("\nMessage Sent Details:");
-                            System.out.println("Message ID: " + msg.getMessageID());
-                            System.out.println("Message Hash: " + msg.getMessageHash());
-                            System.out.println("Recipient: " + msg.getRecipientCell());
-                            System.out.println("Message: " + msg.getMessageText());
+                           
+Message msg = new Message(recipient, msgText, i + 1);
+
+System.out.println("\nChoose what to do with this message:");
+System.out.println("1) Send Message");
+System.out.println("2) Disregard Message");
+System.out.println("3) Store Message");
+
+System.out.print("Your choice: ");
+int messageOption = scanner.nextInt();
+scanner.nextLine();
+
+System.out.println(msg.sentMessage(messageOption));
+
+System.out.println("\nMessage Details:");
+System.out.println("Message ID: " + msg.getMessageID());
+System.out.println("Message Hash: " + msg.getMessageHash());
+System.out.println("Recipient: " + msg.getRecipientCell());
+System.out.println("Message: " + msg.getMessageText());
+
                         }
                     }
-                    case 2 -> System.out.println("Coming Soon.");
-                    case 3 -> running = false;
-                    default -> System.out.println("Invalid option. Please try again.");
+                   case 2 -> System.out.println("Coming Soon.");
+case 3 -> running = false;
+
+case 4 -> {
+    boolean storedMenu = true;
+
+    while (storedMenu) {
+        System.out.println("\n--- STORED MESSAGES MENU ---");
+        System.out.println("1) Display stored messages");
+        System.out.println("2) Display longest stored message");
+        System.out.println("3) Search by Message ID");
+        System.out.println("4) Search by recipient");
+        System.out.println("5) Delete message by Hash");
+        System.out.println("6) Display full report");
+        System.out.println("7) Back to main menu");
+        System.out.print("Choice: ");
+
+        int storedOption = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (storedOption) {
+            case 1 -> Message.displayStoredMessagesSenderRecipient();
+            case 2 -> Message.displayLongestStoredMessage();
+            case 3 -> {
+                System.out.print("Enter Message ID: ");
+                String id = scanner.nextLine();
+                Message.searchByMessageID(id);
+            }
+            case 4 -> {
+                System.out.print("Enter recipient number: ");
+                String recipient = scanner.nextLine();
+                Message.searchByRecipient(recipient);
+            }
+            case 5 -> {
+                System.out.print("Enter Message Hash: ");
+                String hash = scanner.nextLine();
+                Message.deleteByHash(hash);
+            }
+            case 6 -> Message.printReport();
+            case 7 -> storedMenu = false;
+            default -> System.out.println("Invalid option.");
+        }
+    }
+}
+
+default -> System.out.println("Invalid option. Please try again.");
                 }
             }
         }
