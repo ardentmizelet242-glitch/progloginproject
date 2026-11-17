@@ -35,4 +35,17 @@ public class MessageTest {
         String response = msg.sentMessage(1);
         assertEquals("Message successfully sent.", response);
     }
+    @Test
+public void testRecipientNumberFormatFailure() {
+    Message msg = new Message("0838884567", "Hello", 1);
+    assertFalse(msg.checkRecipientCell());
+}
+
+@Test
+public void testDisregardMessageOption() {
+    Message msg = new Message("+27718693002", "Hello", 1);
+    String response = msg.sentMessage(2);
+    assertEquals("Press 0 to delete the message.", response);
+    assertEquals("Disregarded", msg.getStatus());
+}
 }
